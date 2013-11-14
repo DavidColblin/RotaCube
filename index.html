@@ -1,0 +1,139 @@
+<html lang="en" >
+    <head>
+        <title>RotaCube</title>
+
+        <script type="text/javascript" src="jquery.js"></script>
+
+
+        <style media="screen">
+
+            body {
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                -webkit-text-size-adjust: none;
+                color: #333;
+            }
+
+            figure {
+                margin: 0;
+            }
+
+            .container {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                margin: 0 auto 40px;
+                -webkit-perspective: 1000px;
+                -moz-perspective: 1000px;
+                -o-perspective: 1000px;
+                perspective: 1000px;
+            }
+
+            #cube {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+                -webkit-transition: -webkit-transform;
+                -moz-transition: -moz-transform;
+                -o-transition: -o-transform;
+                transition: transform;
+
+            }
+
+            #cube figure {
+                display: block;
+                position: absolute;
+                width: 196px;
+                height: 196px;
+                border: 2px solid black;
+                line-height: 196px;
+                font-size: 120px;
+                font-weight: bold;
+                color: white;
+                text-align: center;
+                box-shadow: 0px 0px 3px black
+
+            }
+
+            #cube .front  { background: hsla(   0, 100%, 50%, 0.7 ); }
+            #cube .back   { background: hsla(  60, 100%, 50%, 0.7 ); }
+            #cube .right  { background: hsla( 120, 100%, 50%, 0.7 ); }
+            #cube .left   { background: hsla( 180, 100%, 50%, 0.7 ); }
+            #cube .top    { background: hsla( 240, 100%, 50%, 0.7 ); }
+            #cube .bottom { background: hsla( 300, 100%, 50%, 0.7 ); }
+
+            #cube .front  {
+                -webkit-transform: translateZ( 100px );
+                -moz-transform: translateZ( 100px );
+                -o-transform: translateZ( 100px );
+                transform: translateZ( 100px );
+            }
+            #cube .back   {
+                -webkit-transform: rotateX( -180deg ) translateZ( 100px );
+                -moz-transform: rotateX( -180deg ) translateZ( 100px );
+                -o-transform: rotateX( -180deg ) translateZ( 100px );
+                transform: rotateX( -180deg ) translateZ( 100px );
+            }
+            #cube .right {
+                -webkit-transform: rotateY(   90deg ) translateZ( 100px );
+                -moz-transform: rotateY(   90deg ) translateZ( 100px );
+                -o-transform: rotateY(   90deg ) translateZ( 100px );
+                transform: rotateY(   90deg ) translateZ( 100px );
+            }
+            #cube .left {
+                -webkit-transform: rotateY(  -90deg ) translateZ( 100px );
+                -moz-transform: rotateY(  -90deg ) translateZ( 100px );
+                -o-transform: rotateY(  -90deg ) translateZ( 100px );
+                transform: rotateY(  -90deg ) translateZ( 100px );
+            }
+            #cube .top {
+                -webkit-transform: rotateX(   90deg ) translateZ( 100px );
+                -moz-transform: rotateX(   90deg ) translateZ( 100px );
+                -o-transform: rotateX(   90deg ) translateZ( 100px );
+                transform: rotateX(   90deg ) translateZ( 100px );
+            }
+            #cube .bottom {
+                -webkit-transform: rotateX(  -90deg ) translateZ( 100px );
+                -moz-transform: rotateX(  -90deg ) translateZ( 100px );
+                -o-transform: rotateX(  -90deg ) translateZ( 100px );
+                transform: rotateX(  -90deg ) translateZ( 100px );
+            }
+        </style>
+    </head>
+    <body>
+        <h1>RotaCube</h1>
+        <p>Click to calibrate, move mouse to rotate the cube</p>
+
+        <section class="container">
+            <div id="cube" class="show-front">
+                <figure class="front">1</figure>
+                <figure class="back">2</figure>
+                <figure class="right">3</figure>
+                <figure class="left">4</figure>
+                <figure class="top">5</figure>
+                <figure class="bottom">6</figure>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            var mouseX = 0;
+            var mouseY = 0;
+
+            $(document).click(function(e) {
+                mouseX = e.pageX;
+                mouseY = e.pageY;
+            });
+
+            $(document).bind('mousemove', function(e) {
+                var posX = e.pageX - mouseX;
+                var posY = -mouseY - e.pageY;
+                console.log("e.pageX: " + posX + ", e.pageY: " + posY);
+                $("#cube").css("transform", "translateZ(-100px) rotateY(" + posX + "deg) rotateX(" + posY + "deg) ");
+            });
+        </script>
+
+    </body>
+</html>
